@@ -26,6 +26,7 @@ async def main(loop):
     bitvavo = Bitvavo({
         'APIKEY': config['APIKEY'],
         'APISECRET': config['APISECRET'],
+        'ACCESSWINDOW': 60000,
     })
 
     db_handler = DB_Handler(config=config, logger=logger)
