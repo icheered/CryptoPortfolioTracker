@@ -50,7 +50,7 @@ if __name__ == "__main__":
     try: 
         loop = asyncio.get_event_loop()
 
-        loop.set_debug(enabled=True)    
+        #loop.set_debug(enabled=True)    
         if loop.get_debug():
             print("\nIf you're seeing this, the application is running in debug mode. \n")
 

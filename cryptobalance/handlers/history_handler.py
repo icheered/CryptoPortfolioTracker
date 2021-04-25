@@ -43,7 +43,7 @@ class History_Handler:
         ret = self.r.table(self.config["HISTORIC_CRYPTO_TABLE"]).insert(datapoint).run(self.db_conn)
         self.logger.trace(ret)
         if ret["inserted"] == 1:
-            self.logger.info(f"Added new datapoint for epoch: {datapoint['epoch_time']}")
+            self.logger.info(f"Added new datapoint for epoch: {datapoint['epoch_time']}, datetime: {datapoint['datetime_time']}")
         else:
             self.logger.warning(f"Adding datapoint went wrong: {ret}")
         return
