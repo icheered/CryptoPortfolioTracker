@@ -36,6 +36,7 @@ class History_Handler:
                 'total': date['total'],
             }
             returnlist.append(datapoint)
+        returnlist.reverse()
         return returnlist
 
     async def get_historic_individual(self, amount: int):
