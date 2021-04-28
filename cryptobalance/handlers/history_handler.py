@@ -17,7 +17,13 @@ class History_Handler:
         """
         Return the total portfolio value for the last <amount> datapoints
         """
-        ret = self.r.table(self.config["HISTORIC_CRYPTO_TABLE"]).limit(amount).order_by('epoch_time').run(self.db_conn)
+        ret = list(self.r.\
+            table(self.config["HISTORIC_CRYPTO_TABLE"]).\
+            order_by(self.r.desc('datetime_time')).\
+            limit(amount).\
+            pluck('epoch_time', 'datetime_time', 'total').\
+            run(self.db_conn))
+        
         returnlist = []
         for date in ret:
             datapoint = {
