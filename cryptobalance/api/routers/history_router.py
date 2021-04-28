@@ -4,12 +4,12 @@ from typing import Optional
 History_Router = APIRouter()
 
 @History_Router.get("/total")
-async def get_totals(request: Request, datapoints: int):
+async def get_totals(request: Request, datapoints: int, interval: int = 1):
    """
    Endpoint that returns a list of portfolio (total) values for a specified number of datapoints in the past
    """
    history_handler = request.app.state.dependencies["history_handler"]
-   result = await history_handler.get_historic_total(amount=datapoints)
+   result = await history_handler.get_historic_total(amount=datapoints, interval=interval)
    retlist = []
    for a in result:
       item = {

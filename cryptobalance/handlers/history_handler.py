@@ -13,19 +13,23 @@ class History_Handler:
         self.db_conn = db_conn
         pass
 
-    async def get_historic_total(self, amount: int):
+    async def get_historic_total(self, amount: int, interval: int):
         """
         Return the total portfolio value for the last <amount> datapoints
         """
         ret = list(self.r.\
             table(self.config["HISTORIC_CRYPTO_TABLE"]).\
             order_by(self.r.desc('datetime_time')).\
-            limit(amount).\
+            limit(amount * interval).\
             pluck('epoch_time', 'datetime_time', 'total').\
             run(self.db_conn))
         
         returnlist = []
+        counter = 0
         for date in ret:
+            counter += 1
+            if counter % interval != 0:
+                continue
             datapoint = {
                 'epoch_time': date['epoch_time'],
                 'datetime_time': date['datetime_time'],
